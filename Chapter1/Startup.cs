@@ -8,6 +8,10 @@ using ServiceStack.Configuration;
 using Chapter1.ServiceInterface;
 using ServiceStack.Validation;
 using ServiceStack.Auth;
+using ServiceStack.OrmLite;
+using ServiceStack.Data;
+using Chapter1.ServiceLogic;
+using Chapter1.ServiceModel;
 
 namespace Chapter1
 {
@@ -60,6 +64,16 @@ namespace Chapter1
             Plugins.Add(new RegistrationFeature());
 
             Plugins.Add(new CorsFeature());
+
+            var dbFactory = new OrmLiteConnectionFactory(
+                "~/App_Data/db.sqlite".MapHostAbsolutePath(),
+                SqliteDialect.Provider);
+            container.Register<IDbConnectionFactory>(dbFactory);
+            container.RegisterAutoWiredAs<BasicOrmMessageRepository, IMessageRepository>();
+            using (var db = dbFactory.OpenDbConnection())
+            {
+                db.DropAndCreateTable<Message>();
+            }
         }
     }
 }
