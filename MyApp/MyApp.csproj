@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Chapter1.ServiceInterface\Chapter1.ServiceInterface.csproj" />
-    <ProjectReference Include="..\Chapter1.ServiceModel\Chapter1.ServiceModel.csproj" />
+    <ProjectReference Include="..\MyApp.Interface\MyApp.Interface.csproj" />
+    <ProjectReference Include="..\MyApp.Model\MyApp.Model.csproj" />
   </ItemGroup>
 
 </Project>

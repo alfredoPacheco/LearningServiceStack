@@ -5,15 +5,15 @@ using Microsoft.Extensions.Configuration;
 using Funq;
 using ServiceStack;
 using ServiceStack.Configuration;
-using Chapter1.ServiceInterface;
+using MyApp.ServiceInterface;
 using ServiceStack.Validation;
 using ServiceStack.Auth;
 using ServiceStack.OrmLite;
 using ServiceStack.Data;
-using Chapter1.ServiceLogic;
-using Chapter1.ServiceModel;
+using MyApp.ServiceLogic;
+using MyApp.ServiceModel;
 
-namespace Chapter1
+namespace MyApp
 {
     public class Startup
     {
@@ -43,7 +43,7 @@ namespace Chapter1
 
     public class AppHost : AppHostBase
     {
-        public AppHost() : base("Chapter1", typeof(GreetingServices).Assembly) { }
+        public AppHost() : base("MyApp", typeof(GreetingServices).Assembly) { }
 
 
         // Configure your AppHost with the necessary configuration and dependencies your App needs
@@ -66,8 +66,8 @@ namespace Chapter1
 
             Plugins.Add(new CorsFeature());
 
-            container.RegisterAutoWired<Chapter1Settings>();
-            var appSettings = container.Resolve<Chapter1Settings>();
+            container.RegisterAutoWired<MyAppSettings>();
+            var appSettings = container.Resolve<MyAppSettings>();
 
             var dbFactory = new OrmLiteConnectionFactory(
                 appSettings.Get("sqlLiteConnectionString", "").MapHostAbsolutePath(),

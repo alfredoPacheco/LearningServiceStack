@@ -1,4 +1,4 @@
-﻿using Chapter1.ServiceModel;
+﻿using MyApp.ServiceModel;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Chapter1.ServiceLogic
+namespace MyApp.ServiceLogic
 {
     public class BasicOrmMessageRepository : IMessageRepository
     {

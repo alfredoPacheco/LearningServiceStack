@@ -1,7 +1,7 @@
 ﻿using ServiceStack;
-using Chapter1.ServiceModel;
+using MyApp.ServiceModel;
 
-namespace Chapter1.ServiceInterface
+namespace MyApp.ServiceInterface
 {
     public class GreetingServices : Service
     {

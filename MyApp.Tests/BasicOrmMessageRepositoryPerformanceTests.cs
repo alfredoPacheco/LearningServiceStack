@@ -1,5 +1,5 @@
-﻿using Chapter1.ServiceLogic;
-using Chapter1.ServiceModel;
+﻿using MyApp.ServiceLogic;
+using MyApp.ServiceModel;
 using NUnit.Framework;
 using ServiceStack;
 using ServiceStack.Data;
@@ -12,7 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Chapter1.Tests
+namespace MyApp.Tests
 {
     [TestFixture]
     public class BasicOrmMessageRepositoryPerformanceTests

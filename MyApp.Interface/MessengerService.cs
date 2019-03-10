@@ -1,14 +1,14 @@
 ﻿using ServiceStack;
-using Chapter1.ServiceModel;
+using MyApp.ServiceModel;
 using System.Linq;
-using Chapter1.ServiceLogic;
+using MyApp.ServiceLogic;
 using ServiceStack.Data;
 
-namespace Chapter1.ServiceInterface
+namespace MyApp.ServiceInterface
 {
     public class MessengerService : Service
     {
-        public Chapter1Settings ApplicationSettings { get; set; }
+        public MyAppSettings ApplicationSettings { get; set; }
         public IDbConnectionFactory DbConnectionFactory { get; set; }
 
         public IMessageRepository MessageRepository { get; set; }

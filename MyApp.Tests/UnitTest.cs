@@ -1,16 +1,16 @@
 ﻿using NUnit.Framework;
 using ServiceStack;
 using ServiceStack.Testing;
-using Chapter1.ServiceInterface;
-using Chapter1.ServiceModel;
+using MyApp.ServiceInterface;
+using MyApp.ServiceModel;
 using System.Threading.Tasks;
 using System.Linq;
 using System;
-using Chapter1.ServiceLogic;
+using MyApp.ServiceLogic;
 using ServiceStack.OrmLite;
 using ServiceStack.Data;
 
-namespace Chapter1.Tests
+namespace MyApp.Tests
 {
     public class UnitTest
     {

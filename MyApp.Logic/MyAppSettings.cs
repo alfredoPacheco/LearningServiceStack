@@ -1,13 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using ServiceStack;
-using ServiceStack.Configuration;
 using System.Collections.Generic;
 
-namespace Chapter1
+namespace MyApp
 {
-    public class Chapter1Settings : NetCoreAppSettings
+    public class MyAppSettings : NetCoreAppSettings
     {
-        public Chapter1Settings(IConfiguration configuration) : base(configuration)
+        public MyAppSettings(IConfiguration configuration) : base(configuration)
         {
         }
 
@@ -24,7 +23,7 @@ namespace Chapter1
             get
             {
                 var settingsName = "EmailSettings_" + Environment;
-                return base.Get(settingsName, (EmailSettings)null);
+                return Get(settingsName, (EmailSettings)null);
             }
         }
 

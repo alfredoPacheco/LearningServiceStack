@@ -1,10 +1,10 @@
 ﻿using Funq;
 using ServiceStack;
 using NUnit.Framework;
-using Chapter1.ServiceInterface;
-using Chapter1.ServiceModel;
+using MyApp.ServiceInterface;
+using MyApp.ServiceModel;
 
-namespace Chapter1.Tests
+namespace MyApp.Tests
 {
     public class IntegrationTest
     {

@@ -1,7 +1,7 @@
 ﻿using ServiceStack;
 using System.Collections.Generic;
 
-namespace Chapter1.ServiceModel
+namespace MyApp.ServiceModel
 {
     [Route("/message")]
     [Route("/message/{GroupName}")]

@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Chapter1.ServiceLogic\Chapter1.ServiceLogic.csproj" />
-    <ProjectReference Include="..\Chapter1.ServiceModel\Chapter1.ServiceModel.csproj" />
+    <ProjectReference Include="..\MyApp.Logic\MyApp.Logic.csproj" />
+    <ProjectReference Include="..\MyApp.Model\MyApp.Model.csproj" />
   </ItemGroup>
 
 </Project>
