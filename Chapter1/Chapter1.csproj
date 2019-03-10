@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="ServiceStack" Version="5.*" />
+    <PackageReference Include="ServiceStack" Version="5.4.1" />
   </ItemGroup>
 
   <ItemGroup>

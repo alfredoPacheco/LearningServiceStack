@@ -14,6 +14,7 @@ namespace Chapter1.ServiceInterface
         }
     }
 
+    
     public class MessengerService : Service
     {
         static List<Message> _messages = new List<Message>();
@@ -32,6 +33,7 @@ namespace Chapter1.ServiceInterface
             };
         }
 
+        [Authenticate]
         public GroupResponse Get(Search request)
         {
             return new GroupResponse

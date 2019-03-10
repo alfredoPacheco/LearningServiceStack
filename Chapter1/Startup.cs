@@ -6,6 +6,8 @@ using Funq;
 using ServiceStack;
 using ServiceStack.Configuration;
 using Chapter1.ServiceInterface;
+using ServiceStack.Validation;
+using ServiceStack.Auth;
 
 namespace Chapter1
 {
@@ -47,6 +49,17 @@ namespace Chapter1
                 DefaultRedirectPath = "/metadata",
                 DebugMode = AppSettings.Get(nameof(HostConfig.DebugMode), false)
             });
+
+            //Plugins.Add(new ValidationFeature());
+
+            Plugins.Add(new AuthFeature(() => new AuthUserSession(),
+                new IAuthProvider[]{
+                    new BasicAuthProvider()
+                }));
+
+            Plugins.Add(new RegistrationFeature());
+
+            Plugins.Add(new CorsFeature());
         }
     }
 }
