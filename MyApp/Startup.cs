@@ -9,6 +9,8 @@ using ServiceStack.OrmLite;
 using ServiceStack.Data;
 using MyApp.Interface;
 using MyApp.Model;
+using ServiceStack.Validation;
+using MyApp.Logic;
 
 namespace MyApp
 {
@@ -52,7 +54,9 @@ namespace MyApp
                 DebugMode = AppSettings.Get(nameof(HostConfig.DebugMode), false)
             });
 
-            //Plugins.Add(new ValidationFeature());
+            Plugins.Add(new ValidationFeature());
+            container.RegisterValidators(
+                typeof(CreatePlaceValidator).Assembly);
 
             Plugins.Add(new AuthFeature(() => new AuthUserSession(),
                 new IAuthProvider[]{
