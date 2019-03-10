@@ -4,14 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Funq;
 using ServiceStack;
-using ServiceStack.Configuration;
-using MyApp.ServiceInterface;
-using ServiceStack.Validation;
 using ServiceStack.Auth;
 using ServiceStack.OrmLite;
 using ServiceStack.Data;
-using MyApp.ServiceLogic;
-using MyApp.ServiceModel;
+using MyApp.Interface;
+using MyApp.Model;
 
 namespace MyApp
 {
@@ -43,7 +40,7 @@ namespace MyApp
 
     public class AppHost : AppHostBase
     {
-        public AppHost() : base("MyApp", typeof(GreetingServices).Assembly) { }
+        public AppHost() : base("MyApp", typeof(PlaceService).Assembly) { }
 
 
         // Configure your AppHost with the necessary configuration and dependencies your App needs
@@ -72,12 +69,14 @@ namespace MyApp
             var dbFactory = new OrmLiteConnectionFactory(
                 appSettings.Get("sqlLiteConnectionString", "").MapHostAbsolutePath(),
                 SqliteDialect.Provider);
-
+            
             container.Register<IDbConnectionFactory>(dbFactory);
-            container.RegisterAutoWiredAs<BasicOrmMessageRepository, IMessageRepository>();
+
+            //container.RegisterAutoWiredAs<BasicOrmMessageRepository, IMessageRepository>();
+
             using (var db = dbFactory.OpenDbConnection())
             {
-                db.DropAndCreateTable<Message>();
+                db.DropAndCreateTable<Place>();
             }
 
         }
