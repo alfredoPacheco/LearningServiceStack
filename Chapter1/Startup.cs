@@ -45,6 +45,7 @@ namespace Chapter1
     {
         public AppHost() : base("Chapter1", typeof(GreetingServices).Assembly) { }
 
+
         // Configure your AppHost with the necessary configuration and dependencies your App needs
         public override void Configure(Container container)
         {
@@ -65,15 +66,20 @@ namespace Chapter1
 
             Plugins.Add(new CorsFeature());
 
+            container.RegisterAutoWired<Chapter1Settings>();
+            var appSettings = container.Resolve<Chapter1Settings>();
+
             var dbFactory = new OrmLiteConnectionFactory(
-                "~/App_Data/db.sqlite".MapHostAbsolutePath(),
+                appSettings.Get("sqlLiteConnectionString", "").MapHostAbsolutePath(),
                 SqliteDialect.Provider);
+
             container.Register<IDbConnectionFactory>(dbFactory);
             container.RegisterAutoWiredAs<BasicOrmMessageRepository, IMessageRepository>();
             using (var db = dbFactory.OpenDbConnection())
             {
                 db.DropAndCreateTable<Message>();
             }
+
         }
     }
 }

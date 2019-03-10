@@ -21,17 +21,20 @@ namespace Chapter1.Tests
             appHost = new BasicAppHost() {
                 ConfigureContainer = container =>
                 {
-                    container.RegisterAutoWiredAs<BasicOrmMessageRepository, IMessageRepository>();
-                    container.RegisterAutoWired<MessengerService>();
                     var dbFactory = new OrmLiteConnectionFactory(
-                        "~/App_Data/db.sqlite".MapHostAbsolutePath(), SqliteDialect.Provider);
+                        "~/App_Data/db.sqlite".MapHostAbsolutePath(),
+                        SqliteDialect.Provider);
+
                     container.Register<IDbConnectionFactory>(dbFactory);
+
+                    container.RegisterAutoWiredAs<BasicOrmMessageRepository,
+                        IMessageRepository>();
+
+                    container.RegisterAutoWired<MessengerService>();
                 }
             }.Init();
             appHost.Container.AddTransient<GreetingServices>();
             appHost.Container.AddTransient<MessengerService>();
-
-           
         }
 
         [OneTimeTearDown]
