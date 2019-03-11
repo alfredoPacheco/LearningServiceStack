@@ -1,14 +1,14 @@
 ﻿using NUnit.Framework;
 using ServiceStack;
 using ServiceStack.Testing;
-using MyApp.ServiceInterface;
-using MyApp.ServiceModel;
 using System.Threading.Tasks;
 using System.Linq;
 using System;
-using MyApp.ServiceLogic;
 using ServiceStack.OrmLite;
 using ServiceStack.Data;
+using MyApp.Interface;
+using MyApp.Model;
+using MyApp.Logic;
 
 namespace MyApp.Tests
 {
@@ -33,7 +33,7 @@ namespace MyApp.Tests
                     container.RegisterAutoWired<MessengerService>();
                 }
             }.Init();
-            appHost.Container.AddTransient<GreetingServices>();
+
             appHost.Container.AddTransient<MessengerService>();
         }
 
@@ -47,16 +47,6 @@ namespace MyApp.Tests
             {
                 db.DropAndCreateTable<Message>();
             }
-        }
-
-        [Test]
-        public void Can_call_MyServices()
-        {
-            var service = appHost.Container.Resolve<GreetingServices>();
-
-            var response = (GreetingResponse)service.Get(new Greeting { Name = "World" });
-
-            Assert.That(response.Result, Is.EqualTo("Hello, World!"));
         }
 
         [Test]

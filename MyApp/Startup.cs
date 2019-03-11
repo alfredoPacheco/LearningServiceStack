@@ -76,7 +76,7 @@ namespace MyApp
             
             container.Register<IDbConnectionFactory>(dbFactory);
 
-            //container.RegisterAutoWiredAs<BasicOrmMessageRepository, IMessageRepository>();
+            container.RegisterAutoWiredAs<BasicOrmMessageRepository, IMessageRepository>();
 
             using (var db = dbFactory.OpenDbConnection())
             {

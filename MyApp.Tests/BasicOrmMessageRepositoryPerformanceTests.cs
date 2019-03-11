@@ -1,5 +1,5 @@
-﻿using MyApp.ServiceLogic;
-using MyApp.ServiceModel;
+﻿using MyApp.Logic;
+using MyApp.Model;
 using NUnit.Framework;
 using ServiceStack;
 using ServiceStack.Data;
@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace MyApp.Tests
 {
