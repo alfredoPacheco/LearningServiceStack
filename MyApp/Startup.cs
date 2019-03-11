@@ -11,6 +11,8 @@ using MyApp.Interface;
 using MyApp.Model;
 using ServiceStack.Validation;
 using MyApp.Logic;
+using System.Collections.Generic;
+using ServiceStack.Caching;
 
 namespace MyApp
 {
@@ -48,35 +50,34 @@ namespace MyApp
         // Configure your AppHost with the necessary configuration and dependencies your App needs
         public override void Configure(Container container)
         {
+            #region Metadata
             SetConfig(new HostConfig
             {
                 DefaultRedirectPath = "/metadata",
                 DebugMode = AppSettings.Get(nameof(HostConfig.DebugMode), false)
             });
+            #endregion
 
+            #region Plugins
             Plugins.Add(new ValidationFeature());
             container.RegisterValidators(
                 typeof(CreatePlaceValidator).Assembly);
 
-            Plugins.Add(new AuthFeature(() => new AuthUserSession(),
-                new IAuthProvider[]{
-                    new BasicAuthProvider()
-                }));
-
-            Plugins.Add(new RegistrationFeature());
-
             Plugins.Add(new CorsFeature());
 
+            Plugins.Add(new PostmanFeature());
+            #endregion
+
+            #region App
+            container.RegisterAutoWiredAs<BasicOrmMessageRepository, IMessageRepository>();
             container.RegisterAutoWired<MyAppSettings>();
             var appSettings = container.Resolve<MyAppSettings>();
+            #endregion
 
+            #region Database
             var dbFactory = new OrmLiteConnectionFactory(
                 appSettings.Get("sqlLiteConnectionString", "").MapHostAbsolutePath(),
                 SqliteDialect.Provider);
-            
-            container.Register<IDbConnectionFactory>(dbFactory);
-
-            container.RegisterAutoWiredAs<BasicOrmMessageRepository, IMessageRepository>();
 
             using (var db = dbFactory.OpenDbConnection())
             {
@@ -84,6 +85,30 @@ namespace MyApp
                 db.DropAndCreateTable<Message>();
             }
 
+            container.Register<IDbConnectionFactory>(dbFactory);
+            #endregion
+
+            #region Auth
+            var authProviders = new List<IAuthProvider>();
+            authProviders.Add(new CredentialsAuthProvider());
+
+            var authFeature = new AuthFeature(SessionFactory, authProviders.ToArray());
+            Plugins.Add(authFeature);
+
+            var authRepo = new OrmLiteAuthRepository(dbFactory);
+            container.Register<IUserAuthRepository>(authRepo);
+            container.Register<ICacheClient>(new MemoryCacheClient());
+            authRepo.DropAndReCreateTables();
+            authRepo.InitSchema();
+
+            Plugins.Add(new RegistrationFeature());
+            //CreateUsers(userRep);
+            #endregion
+        }
+
+        private IAuthSession SessionFactory()
+        {
+            return new AuthUserSession();
         }
     }
 }

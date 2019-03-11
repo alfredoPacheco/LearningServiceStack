@@ -44,6 +44,7 @@ namespace MyApp.Interface
             };
         }
 
+        [Authenticate]
         public GroupResponse Get(Search request)
         {
             return new GroupResponse
