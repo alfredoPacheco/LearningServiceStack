@@ -81,6 +81,7 @@ namespace MyApp
             using (var db = dbFactory.OpenDbConnection())
             {
                 db.DropAndCreateTable<Place>();
+                db.DropAndCreateTable<Message>();
             }
 
         }
