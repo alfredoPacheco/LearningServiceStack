@@ -79,13 +79,32 @@ namespace MyApp
                 appSettings.Get("sqlLiteConnectionString", "").MapHostAbsolutePath(),
                 SqliteDialect.Provider);
 
+            container.Register<IDbConnectionFactory>(dbFactory);
+
             using (var db = dbFactory.OpenDbConnection())
             {
-                db.DropAndCreateTable<Place>();
-                db.DropAndCreateTable<Message>();
+                //db.DropAndCreateTable<UserGreeting>();
+                db.DropAndCreateTable<UserLanguage>();
+                db.DropAndCreateTable<GreetingUsage>();
             }
 
-            container.Register<IDbConnectionFactory>(dbFactory);
+            using (var db = dbFactory.OpenDbConnection())
+            {
+                db.Insert(new UserLanguage { Language = "English" });
+                //db.Insert(new UserGreeting
+                //{
+                //    Greeting = "Hello, {0}",
+                //    UserLanguageId = 1
+                //});
+                //db.Insert(new UserGreeting
+                //{
+                //    Greeting = "G'day, {0}"
+                //});
+                //db.Insert(new UserGreeting
+                //{
+                //    Greeting = "Howdy, {0}!"
+                //});
+            }
             #endregion
 
             #region Auth
