@@ -13,6 +13,7 @@ using ServiceStack.Validation;
 using MyApp.Logic;
 using System.Collections.Generic;
 using ServiceStack.Caching;
+using ServiceStack.Configuration;
 
 namespace MyApp
 {
@@ -122,6 +123,12 @@ namespace MyApp
 
             Plugins.Add(new RegistrationFeature());
             //CreateUsers(userRep);
+
+            authRepo.CreateUserAuth(new UserAuth
+            {
+                UserName = "admin",
+                Roles = new List<string> { RoleNames.Admin }
+            }, "admin");
             #endregion
         }
 
