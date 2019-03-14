@@ -14,6 +14,7 @@ using MyApp.Logic;
 using System.Collections.Generic;
 using ServiceStack.Caching;
 using ServiceStack.Configuration;
+using ServiceStack.Api.OpenApi;
 
 namespace MyApp
 {
@@ -106,6 +107,7 @@ namespace MyApp
                 //    Greeting = "Howdy, {0}!"
                 //});
             }
+            OrmLiteConfig.StringFilter = s => s.Trim();
             #endregion
 
             #region Auth
@@ -130,6 +132,24 @@ namespace MyApp
                 Roles = new List<string> { RoleNames.Admin }
             }, "admin");
             #endregion
+
+            //Plugins.Add(new OpenApiFeature());
+
+            //TODO:
+            //Logging.
+            //Cache.
+            //Global Response Filter: CommonResponse.
+            //Batched requests.
+            //transactions.
+            //attachments
+            //Profiler.
+            //Versioning.
+            //Compression.
+            //Autoquery.
+            //stripe.com
+
+
+
         }
 
         private IAuthSession SessionFactory()

@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="ServiceStack" Version="5.4.1" />
+    <PackageReference Include="ServiceStack.Api.OpenApi.Core" Version="5.4.0" />
     <PackageReference Include="ServiceStack.Server" Version="5.4.1" />
   </ItemGroup>
 
